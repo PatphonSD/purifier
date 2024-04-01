@@ -11,7 +11,7 @@ void setup()
     Serial2.begin(9600);
     Serial.begin(115200);
     lcd.setCursor(0, 0);
-    lcd.print("ASS HOLE!!");
+    lcd.print("Smart Purifier");
     delay(3000);
     connectToWiFi();
     http.begin(http_server_url);
