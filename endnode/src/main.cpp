@@ -192,21 +192,28 @@ void loop()
 
             Serial.println();
 
-            lcd.clear();
             lcd.setCursor(0, 0);
-            lcd.print("PM2.5: ");
+            lcd.print("PM2.5:");
+            lcd.print("     ");
+            lcd.setCursor(6, 0);
             lcd.print(data.PM_AE_UG_2_5);
             lcd.setCursor(0, 1);
-            lcd.print("PM10:  ");
+            lcd.print("PM10 :");
+            lcd.print("     ");
+            lcd.setCursor(6, 1);
             lcd.print(data.PM_AE_UG_10_0);
 
-            lcd.setCursor(9, 0);
+            lcd.setCursor(11, 0);
             lcd.print("T:");
-            lcd.print(dht.readTemperature());
+            lcd.print("  ");
+            lcd.setCursor(13, 0);
+            lcd.print(dht.readTemperature(), 0);
             lcd.print("C");
-            lcd.setCursor(9, 1);
+            lcd.setCursor(11, 1);
             lcd.print("H:");
-            lcd.print(dht.readHumidity());
+            lcd.print("  ");
+            lcd.setCursor(13, 1);
+            lcd.print(dht.readHumidity(), 0);
             lcd.print("%");
 
             // เก็บค่าปัจจุบันเพื่อเปรียบเทียบใน loop ถัดไป
@@ -244,7 +251,7 @@ void automaticLoop()
         {
             on();
         }
-        else
+        else if (data.PM_AE_UG_10_0 <= 50 || data.PM_AE_UG_2_5 <= 50)
         {
             off();
         }
