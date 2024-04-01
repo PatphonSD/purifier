@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    ports:
+      - "3250:3250" # เปิด port ของ backend
+      - "3002:3002"
+    networks:
+      - emqx-bridge
+
+  frontend:  
+    command: npm run production
+    container_name: web_app
+    build: ./frontend 
+    ports:
+      - "80:3000"
+      - "443:3000"
+    networks:
+      - emqx-bridge
+
+  emqx1:
+    image: emqx
+    container_name: emqx1
+    environment:
+    - "EMQX_NODE_NAME=emqx@node1.emqx.io"
+    - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+    - "EMQX_CLUSTER__STATIC__SEEDS=[emqx@node1.emqx.io,emqx@node2.emqx.io]"
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 5s
+      timeout: 25s
+      retries: 5
+    networks:
+      emqx-bridge:
+        aliases:
+        - node1.emqx.io
+    ports:
+      - 1883:1883
+      - 8083:8083
+      - 8084:8084
+      - 8883:8883
+      - 18083:18083 
+    # volumes:
+    #   - $PWD/emqx1_data:/opt/emqx/data
+
+  emqx2:
+    image: emqx
+    container_name: emqx2
+    environment:
+    - "EMQX_NODE_NAME=emqx@node2.emqx.io"
+    - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+    - "EMQX_CLUSTER__STATIC__SEEDS=[emqx@node1.emqx.io,emqx@node2.emqx.io]"
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 5s
+      timeout: 25s
+      retries: 5
+    networks:
+      emqx-bridge:
+        aliases:
+        - node2.emqx.io
+    # volumes:
+    #   - $PWD/emqx2_data:/opt/emqx/data
+
+networks:
+  emqx-bridge:
+    driver: bridge

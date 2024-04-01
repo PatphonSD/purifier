@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx nodemon index.js",
+    "start": "node index.js",
+    "production": "npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "micro": "^10.0.1",
+    "micro-cors": "^0.1.1",
+    "mqtt": "^5.5.0",
+    "node-cache": "^5.1.2",
+    "socket.io": "^4.7.5",
+    "winston": "^3.13.0"
+  }
+}

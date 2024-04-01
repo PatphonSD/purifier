@@ -1,0 +1,4 @@
+# รวมไฟล์ gitignore
+include: backend/.gitignore
+include: frontend/.gitignore
+include: endnode/.gitignore
