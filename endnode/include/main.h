@@ -34,10 +34,10 @@ bool wifiConnectionResponse;
 bool enabledAutomatic;
 
 // HTTP Server Settings
-const char *http_server_url = "http://192.168.1.38:3002";
+const char *http_server_url = "http://193.203.161.135:3002";
 
 // MQTT Broker Settings
-const char *mqtt_broker = "192.168.1.38";
+const char *mqtt_broker = "193.203.161.135";
 const char *mqtt_username = "purifier";
 const char *mqtt_password = "tas5630a";
 const int mqtt_port = 1883;
